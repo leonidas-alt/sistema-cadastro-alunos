@@ -1,64 +1,77 @@
 alunos=[]
-def cadastrar():
+gera_matricula=1
+
+def cadastrar(nome, idade, matricula):
     global gera_matricula
-    print("Digite")
-    matricula=gera_matricula
+    aluno = {
+        "nome": nome,
+        "idade": idade,
+        "matricula": matricula
+    }
+    alunos.append(aluno)
+    print(f"Aluno{nome} cadastrado com sucessso! Matrícula: {gera_matricula}")
     gera_matricula+=1
-
-def listar():
+def listar(nome,idade,matricula):
     if not alunos:
-
-        return
-def buscar():
+        print("Aluno não encontrado!")
+        for aluno in alunos:
+            print(f"Nome: {aluno['nome']}, Idade: {aluno['idade']}, Matrícula: {aluno['matricula']}")
+def buscar(matricula):
     for aluno in alunos:
-        if aluno ["..."]==matricula:
-
-            return
-def atualizar():
-    matricula=int(input("..."))
+        if aluno ['matricula']==matricula:
+            print(f"Nome: {aluno['nome']}, Idade: {aluno['idade']}, Matrícula: {aluno['matricula']}")
+            return aluno
+    print("Aluno não encontrado!")
+    return None
+def atualizar(matricula, novo_nome=None, nova_idade=None):
     for aluno in alunos:
-        if aluno["..."]==matricula:
-            print("O que deseja atualizar?")
-
-            opcao=input("Escolha: ")
-        if opcao == "1":
-            aluno["nome"]= input("Novo nome: ")
-        elif opcao == "2":
-            aluno["idade"]= input("Nova idade: ")
-        else: 
-            print("Opção inválida!")
-
+        if aluno['matricula']==matricula:
+            if novo_nome:
+                aluno['nome']=novo_nome
+            if nova_idade:
+                aluno['idade']=nova_idade
+            print("Aluno {matricula} atualizado com sucesso!")
             return
-        print("sucesso!")
-        return 
-def remover():
-    matricula=input("Digite o nome do aluno: ")
-    encontrado=False
+    print("Aluno não encontrado para atualização.")
+def remover(matricula):
     for aluno in alunos:
         if aluno['matricula']==matricula:
             alunos.remove(alunos)
-            print("Aluno removido com sucesso!")
-            encontrado=True
-            break
-        if not encontrado: 
-            print("Aluno não encontrado.")
+            print(f"Aluno {aluno['nome']} removido com sucesso!")
+            return 
+        print("Aluno não encontrado.")
 while True:
-    print("...")
+    print("\nMenu:")
+    print("1 - Cadastrar aluno")
+    print("2 - Listar alunos")
+    print("3 - Buscar aluno")
+    print("4 - Atualizar aluno")
+    print("5 - Remover aluno")
+    print("6 - Sair")
     opcao=input("Escolha uma opção: ")
+
     if opcao == "1":
-        cadastrar()
-    if opcao == "2":
-        listar()
-    if opcao == "3":
-        buscar()
-    if opcao == "4":
-        atualizar()
-    if opcao == "5":
-        remover()
-    if opcao == "6":
-        print("Saindo...")
-        break
-    else:
-        print("Opção inválida, tente novamente!")
+            nome = input("Nome: ")
+            idade = int(input("Idade: "))
+            cadastrar(nome, idade, gera_matricula)
+    elif opcao == "2":
+            listar()
+    elif opcao == "3":
+            matricula = int(input("Matrícula do aluno: "))
+            buscar(matricula)
+    elif opcao == "4":
+            matricula = int(input("Matrícula do aluno: "))
+            novo_nome = input("Novo nome (deixe vazio para não alterar): ")
+            nova_idade_str = input("Nova idade (deixe vazio para não alterar): ")
+            nova_idade = int(nova_idade_str) if nova_idade_str else None
+            atualizar(matricula, novo_nome if novo_nome else None, nova_idade)
+    elif opcao == "5":
+            matricula = int(input("Matrícula do aluno: "))
+            remover(matricula)
+    elif opcao == "6":
+            print("Saindo...")
+            break
+else:
+    print("Opção inválida, tente novamente!")
                         
 
